@@ -55,9 +55,9 @@ def run(cfg: Config, now: datetime, fetch: Callable = fetch_with_retries,
             if requests_made:
                 sleep(random.uniform(cfg.min_delay_seconds, cfg.max_delay_seconds))
             query = build_query(cfg, spec.travel_date.isoformat(), spec.origin, spec.destination)
-            outcome = fetch(query, cfg, sleep=sleep)
-            requests_made += outcome.attempts
             label = f"{spec.leg} {spec.origin}->{spec.destination} {spec.travel_date}"
+            outcome = fetch(query, cfg, sleep=sleep, debug_name=f"{spec.travel_date}_{spec.leg}")
+            requests_made += outcome.attempts
             if outcome.kind != OK:
                 log.error("FAILED %s: %s: %s (after %d attempt(s))", label, outcome.kind, outcome.detail,
                           outcome.attempts)
@@ -69,14 +69,20 @@ def run(cfg: Config, now: datetime, fetch: Callable = fetch_with_retries,
             quotes, rejected = qualifying(outcome.flights, spec)
             best = cheapest(quotes)
             summary = describe_rejections(len(outcome.flights), rejected)
+            if outcome.skipped:
+                summary += f"; {outcome.skipped} unreadable result(s) skipped"
             if best is None:
                 log.info("%s: no qualifying flight (%s)", label, summary)
-                legs.append(LegResult(spec.leg, spec.travel_date, NO_FLIGHTS, detail=summary))
+                legs.append(LegResult(spec.leg, spec.travel_date, NO_FLIGHTS, detail=summary,
+                                      skipped=outcome.skipped))
             else:
                 log.info("%s: %s %s %d (%d qualifying of %d)", label, best.airline, f"{best.departure:%H:%M}",
                          best.price, len(quotes), len(outcome.flights))
-                legs.append(LegResult(spec.leg, spec.travel_date, OK, quote=best,
-                                      detail=f"{len(quotes)} qualifying of {len(outcome.flights)} results"))
+                detail = f"{len(quotes)} qualifying of {len(outcome.flights)} results"
+                if outcome.skipped:
+                    detail += f"; {outcome.skipped} unreadable result(s) skipped"
+                legs.append(LegResult(spec.leg, spec.travel_date, OK, quote=best, detail=detail,
+                                      skipped=outcome.skipped))
         results.append(WeekendResult(weekend, legs[0], legs[1]))
     return results, requests_made
 

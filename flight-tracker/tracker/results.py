@@ -27,6 +27,7 @@ class LegResult:
     status: str  # OK / NO_FLIGHTS / FAILED
     quote: Quote | None = None
     detail: str = ""
+    skipped: int = 0  # results Google sent that we couldn't read
 
 
 @dataclass
