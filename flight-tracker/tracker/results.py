@@ -11,6 +11,7 @@ from .filters import Quote
 from .weekends import Weekend
 
 OK, NO_FLIGHTS, FAILED = "ok", "no_qualifying_flights", "fetch_failed"
+NOT_ON_SALE = "not_on_sale_yet"  # beyond the booking window; not searched
 PRICING_ONE_WAY = "one-way"
 
 FIELDS = [
@@ -24,7 +25,7 @@ FIELDS = [
 class LegResult:
     leg: str  # "outbound" / "return"
     travel_date: date
-    status: str  # OK / NO_FLIGHTS / FAILED
+    status: str  # OK / NO_FLIGHTS / FAILED / NOT_ON_SALE
     quote: Quote | None = None
     detail: str = ""
     skipped: int = 0  # results Google sent that we couldn't read

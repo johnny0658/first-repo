@@ -1,19 +1,30 @@
 # SIN → BKK weekend fare tracker
 
-A daily GitHub Actions job that checks Google Flights for Friday-evening
-Singapore → Bangkok (Suvarnabhumi) and Sunday-night return flights over the
-next 12 weekends, then writes a summary you can scan in a few seconds.
-**Latest results: [SUMMARY.md](SUMMARY.md)**. Full history: [data/history.csv](data/history.csv).
+A GitHub Actions job that checks Google Flights for Friday-evening
+Singapore → Bangkok (Suvarnabhumi) and Sunday-night return flights, then
+writes summaries you can scan in a few seconds. It runs two scans:
+
+| Scan | When | Weekends | Results | History |
+|---|---|---|---|---|
+| `upcoming` | daily | next 12 | **[SUMMARY.md](SUMMARY.md)** | [data/history.csv](data/history.csv) |
+| `year2027` | weekly (Wed) | every weekend with its Friday in 2027 (53) | **[SUMMARY-2027.md](SUMMARY-2027.md)** | [data/history-2027.csv](data/history-2027.csv) |
+
+Each page shows only its own latest run. The weekly page is up to a week
+old, and its header says when it ran.
 
 It only tells you where to look. Always book, and check the real price, on the
 airline's own site.
 
 ## How it works
 
-1. Works out the next 12 Friday–Sunday pairs, using today's date in Singapore.
-   If today is a Friday, this weekend is included.
+1. Works out the scan's Friday–Sunday pairs, using today's date in Singapore.
+   If today is a Friday, this weekend is included; past weekends are dropped.
 2. For each weekend, it makes two one-way searches (outbound Friday, return
-   Sunday). That is 24 requests, with a random 4–9 s pause between them.
+   Sunday), with a random 4–9 s pause between them. That's 24 requests for
+   `upcoming`. For `year2027`, any leg more than 330 days ahead
+   (`max_days_ahead`) shows `⏳ not on sale yet` and isn't searched, because
+   airlines haven't released those seats. In October 2026 that means about
+   69 requests, rising to 106 as the rest of 2027 comes on sale.
    The searches use [fast-flights](https://github.com/AWeirdDev/flights)
    (pinned to 3.1.0), which scrapes Google Flights without an API key.
 3. It re-checks every result in its own code and does not rely on Google's
@@ -38,6 +49,7 @@ Each leg in the summary shows one of three states:
 |---|---|
 | `SGD 128 · Scoot · 19:05→20:30` | Cheapest qualifying flight found **in this run** |
 | `— no qualifying flights (…)` | Google answered, but nothing met the rules. The reason is given, e.g. "3 departs before 18:00" |
+| `⏳ not on sale yet` | More than `max_days_ahead` days away, so not searched. It gets searched automatically once it's in range |
 | `❌ fetch failed: …` | No usable answer: network error, consent page, block page or unreadable response |
 | `… ⚠ 2 unreadable` | Priced, but Google also sent results that couldn't be read and were skipped. One of those could have been cheaper |
 
@@ -47,16 +59,19 @@ never carried forward. ★ marks the cheapest complete weekend.
 ## Changing the settings
 
 Everything is in [`config.toml`](config.toml): airports and their time zones,
-the departure-time thresholds, the number of weekends, passengers, cabin,
-nonstop-only, currency, price sanity bounds, request pacing and alert
-thresholds. Edit it on GitHub and commit. The next run uses the new values.
+the departure-time thresholds, passengers, cabin, nonstop-only, currency,
+price sanity bounds, booking window, request pacing, alert thresholds and the
+scans (`[scans.upcoming]` with `weekends = 12`, and `[scans.year2027]` with a
+`first_friday`/`last_friday` range). Edit it on GitHub and commit. The next
+run uses the new values. To track 2028 later, add a `[scans.year2028]` section,
+then add it to the workflow's `scan` options and schedule.
 
-The schedule is set in `.github/workflows/flight-tracker.yml` (`cron`, in UTC;
-the default `17 1 * * *` is 09:17 Singapore time).
+The schedules are in `.github/workflows/flight-tracker.yml` (`cron`, in UTC):
+`17 1 * * *` runs `upcoming` daily at 09:17 Singapore time, and `47 2 * * 3`
+runs `year2027` on Wednesdays at 10:47.
 
 To run it on demand, go to **Actions → Flight tracker (SIN-BKK weekends) →
-Run workflow**. This button only appears once the workflow is on the
-default branch, i.e. after this PR is merged.
+Run workflow** and pick the scan.
 
 To run it locally:
 
@@ -64,7 +79,8 @@ To run it locally:
 cd flight-tracker
 pip install -r requirements-dev.txt
 python -m pytest -q          # offline unit tests
-python -m tracker            # live run; writes data/history.csv and SUMMARY.md
+python -m tracker                     # live run of the daily scan
+python -m tracker --scan year2027     # live run of the 2027 scan
 ```
 
 ## Telegram alerts (optional)
@@ -87,6 +103,12 @@ logs a warning but doesn't fail the run.
 
 ## Known limitations
 
+- **Request volume.** On Wednesdays the two scans together make up to ~130
+  searches, compared with ~24 on other days. If Google starts blocking
+  runs, move the 2027 scan to a less frequent schedule first.
+- **Booking window.** 330 days is an estimate. Airlines open sales between
+  roughly 330 and 355 days ahead. Legs just past the cut-off may already be
+  on sale but won't be searched until they fall inside it.
 - **Unofficial scraping.** Google can change its page at any time, or show a
   consent or CAPTCHA page to GitHub's servers. When that happens the affected
   legs show `❌ fetch failed`. After a consent or block page, the run stops

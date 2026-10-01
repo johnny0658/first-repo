@@ -5,8 +5,8 @@ from __future__ import annotations
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from .config import Config
-from .results import FAILED, NO_FLIGHTS, OK, LegResult, WeekendResult
+from .config import Config, Scan
+from .results import FAILED, NO_FLIGHTS, NOT_ON_SALE, OK, LegResult, WeekendResult
 
 
 def money(cfg: Config, amount: float) -> str:
@@ -43,6 +43,8 @@ def _leg_cell(cfg: Config, lr: LegResult) -> str:
         if lr.skipped:
             text += f" ⚠ {lr.skipped} unreadable"
         return text
+    if lr.status == NOT_ON_SALE:
+        return "⏳ not on sale yet"
     if lr.status == NO_FLIGHTS:
         return f"— no qualifying flights ({lr.detail})" if lr.detail else "— no qualifying flights"
     kind, _, rest = lr.detail.partition(": ")
@@ -71,18 +73,22 @@ def cheapest_weekend(results: list[WeekendResult]) -> WeekendResult | None:
     return min(complete, key=lambda r: (r.total, r.weekend.friday)) if complete else None
 
 
-def render(cfg: Config, run_ts: datetime, results: list[WeekendResult],
+def render(cfg: Config, scan: Scan, run_ts: datetime, results: list[WeekendResult],
            prev_run: str | None, prev: dict, requests_made: int) -> str:
     local = run_ts.astimezone(cfg.origin_tz)
     tz_label = cfg.origin_tz.key.split("/")[-1].replace("_", " ") + " time"
     best = cheapest_weekend(results)
-    failed = sum(1 for r in results for lr in (r.outbound, r.ret) if lr.status == FAILED)
+    legs = [lr for r in results for lr in (r.outbound, r.ret)]
+    failed = sum(lr.status == FAILED for lr in legs)
+    not_on_sale = sum(lr.status == NOT_ON_SALE for lr in legs)
+    searched = len(legs) - not_on_sale
     stops = "nonstop" if cfg.nonstop_only else "any stops"
     lines = [
-        f"# {cfg.origin} → {cfg.destination} weekend fares",
+        f"# {cfg.origin} → {cfg.destination} weekend fares: {scan.title}",
         "",
         f"**Last run:** {local:%a %d %b %Y %H:%M} {tz_label} ({run_ts:%H:%M} UTC) · "
-        f"{requests_made} requests · {failed} of {2 * len(results)} legs failed",
+        f"{requests_made} requests · {failed} of {searched} searched legs failed"
+        + (f" · {not_on_sale} legs not on sale yet" if not_on_sale else ""),
         "",
         f"Outbound: Friday {cfg.origin}→{cfg.destination}, departing {cfg.outbound_earliest:%H:%M} or later "
         f"({cfg.origin} local). Return: Sunday {cfg.destination}→{cfg.origin}, departing "
@@ -108,7 +114,9 @@ def render(cfg: Config, run_ts: datetime, results: list[WeekendResult],
         "",
         f"★ = cheapest weekend with both legs priced. Times are local at each airport; "
         f"+1 = arrives next day. ⚠ = Google sent results that couldn't be read and were skipped; "
-        f"one of them could have been cheaper. Previous run: {prev_run or 'none'}.",
+        f"one of them could have been cheaper. ⏳ = more than {cfg.max_days_ahead} days ahead, so not "
+        f"searched yet; it will be once it is within range. Past weekends are dropped. "
+        f"Previous run: {prev_run or 'none'}.",
         "",
         "Book on the airline's own site and check the price there; Google's fare can differ.",
         "",

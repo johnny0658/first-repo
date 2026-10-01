@@ -121,3 +121,32 @@ def test_cheapest_tie_goes_to_earlier_flight(out_spec):
 
 def test_cheapest_of_nothing():
     assert cheapest([]) is None
+
+
+# --- scans / date ranges ------------------------------------------------------
+
+def test_weekends_in_range():
+    from tracker.weekends import weekends_in_range
+    ws = weekends_in_range(date(2026, 10, 1), date(2027, 1, 1), date(2027, 12, 31))
+    assert len(ws) == 53 and ws[0].friday == date(2027, 1, 1) and ws[-1].friday == date(2027, 12, 31)
+    # Same "today" rule as upcoming_weekends: Friday included, Saturday not.
+    assert weekends_in_range(date(2027, 3, 5), date(2027, 1, 1), date(2027, 12, 31))[0].friday == date(2027, 3, 5)
+    assert weekends_in_range(date(2027, 3, 6), date(2027, 1, 1), date(2027, 12, 31))[0].friday == date(2027, 3, 12)
+    assert weekends_in_range(date(2028, 1, 1), date(2027, 1, 1), date(2027, 12, 31)) == []
+
+
+@pytest.mark.parametrize("scan_toml, error", [
+    ('weekends = 4\nfirst_friday = 2027-01-01\nlast_friday = 2027-02-01', "either weekends or"),
+    ('title = "x"', "either weekends or"),
+    ('first_friday = 2027-01-01', "must both be dates"),
+    ('first_friday = 2027-03-01\nlast_friday = 2027-02-01', "after last_friday"),
+    ('weekends = 40', "between 1 and 26"),
+])
+def test_bad_scan_config(tmp_path, scan_toml, error):
+    from conftest import ROOT
+    from tracker.config import load_config
+    text = (ROOT / "config.toml").read_text().split("[scans.upcoming]")[0]
+    p = tmp_path / "config.toml"
+    p.write_text(text + f'[scans.bad]\nhistory_csv = "h.csv"\nsummary_md = "s.md"\n{scan_toml}\n')
+    with pytest.raises(ValueError, match=error):
+        load_config(p)

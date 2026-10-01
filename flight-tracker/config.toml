@@ -9,7 +9,6 @@ origin_timezone = "Asia/Singapore"
 destination_timezone = "Asia/Bangkok"
 outbound_earliest_departure = "18:00" # Friday, origin local time
 return_earliest_departure = "20:00"   # Sunday, destination local time
-weekends = 12                         # Friday-Sunday pairs, starting with the next Friday (today if it is Friday)
 
 [search]
 adults = 1
@@ -26,6 +25,9 @@ max_leg_price = 1500
 # Reported departure/arrival times must agree with the reported flight
 # duration (after applying both airports' time zones) within this tolerance.
 duration_tolerance_minutes = 10
+# Airlines release seats roughly 330-355 days ahead. Legs further out than
+# this are shown as "not on sale yet" and not searched, to save requests.
+max_days_ahead = 330
 
 [scraping]
 min_delay_seconds = 4                 # random pause between requests
@@ -39,6 +41,19 @@ total_below = 250
 # ...or has dropped by more than this percentage since the previous run.
 drop_percent = 10
 
-[output]
+# Each scan has its own summary page and history file, so every price on a
+# page comes from that page's latest run. The workflow picks the scan:
+# "upcoming" daily, "year2027" weekly (see .github/workflows/flight-tracker.yml).
+
+[scans.upcoming]
+title = "next 12 weekends"
+weekends = 12                         # starting with the next Friday (today if it is Friday)
 history_csv = "data/history.csv"
 summary_md = "SUMMARY.md"
+
+[scans.year2027]
+title = "2027"
+first_friday = 2027-01-01             # every weekend whose Friday is in this range
+last_friday = 2027-12-31              # (past weekends are dropped automatically)
+history_csv = "data/history-2027.csv"
+summary_md = "SUMMARY-2027.md"
