@@ -2,13 +2,25 @@ name: Flight tracker (SIN-BKK weekends)
 
 on:
   schedule:
-    # 01:17 UTC = 09:17 Singapore time, once a day. Off the hour to avoid
-    # GitHub's top-of-hour scheduling backlog.
+    # Off the hour to avoid GitHub's top-of-hour scheduling backlog.
+    # Daily at 09:17 Singapore time: the next 12 weekends (~24 searches).
     - cron: "17 1 * * *"
+    # Wednesdays at 10:47 Singapore time: every on-sale 2027 weekend (up to
+    # ~106 searches). If you change this line, change WEEKLY_CRON below too.
+    - cron: "47 2 * * 3"
   workflow_dispatch:
+    inputs:
+      scan:
+        description: Which weekends to check
+        type: choice
+        options: [upcoming, year2027]
+        default: upcoming
 
 permissions:
   contents: write
+
+env:
+  WEEKLY_CRON: "47 2 * * 3"
 
 concurrency:
   group: flight-tracker
@@ -17,7 +29,7 @@ concurrency:
 jobs:
   track:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: flight-tracker
@@ -42,9 +54,11 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TRACKER_DEBUG_DIR: debug-pages
+          SCAN: ${{ github.event_name == 'workflow_dispatch' && inputs.scan || (github.event.schedule == env.WEEKLY_CRON && 'year2027' || 'upcoming') }}
         run: |
           set +e
-          python -m tracker config.toml
+          echo "scan=$SCAN" >> "$GITHUB_OUTPUT"
+          python -m tracker config.toml --scan "$SCAN"
           echo "code=$?" >> "$GITHUB_OUTPUT"
 
       # Pages that failed to parse or had unreadable results, for diagnosis.
@@ -64,12 +78,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/history.csv SUMMARY.md
+          git add data/*.csv SUMMARY*.md
           if git diff --cached --quiet; then
             echo "Nothing to commit"
             exit 0
           fi
-          git commit -m "flight-tracker: update fares $(date -u +%Y-%m-%dT%H:%MZ)"
+          git commit -m "flight-tracker: update ${{ steps.track.outputs.scan }} fares $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3; do
             git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
             sleep $((i * 5))
@@ -79,5 +93,5 @@ jobs:
       - name: Fail if every fetch failed
         if: steps.track.outputs.code != '0'
         run: |
-          echo "::error::All fare lookups failed this run. See the 'Fetch fares' log and SUMMARY.md."
+          echo "::error::All fare lookups failed this run. See the 'Fetch fares' log and the summary page."
           exit 1
