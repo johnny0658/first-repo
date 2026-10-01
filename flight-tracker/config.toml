@@ -1,0 +1,44 @@
+# Flight tracker configuration. Edit values here; no code changes needed.
+# Times are wall-clock times at the departure airport and are INCLUSIVE:
+# a flight departing at exactly 18:00 counts as "18:00 or later".
+
+[trip]
+origin = "SIN"                        # outbound departs here (Friday)
+destination = "BKK"                   # Suvarnabhumi; DMK flights are rejected
+origin_timezone = "Asia/Singapore"
+destination_timezone = "Asia/Bangkok"
+outbound_earliest_departure = "18:00" # Friday, origin local time
+return_earliest_departure = "20:00"   # Sunday, destination local time
+weekends = 12                         # Friday-Sunday pairs, starting with the next Friday (today if it is Friday)
+
+[search]
+adults = 1
+seat = "economy"                      # economy / premium-economy / business / first
+nonstop_only = true
+currency = "SGD"
+language = "en-US"
+
+[sanity]
+# Prices outside this range (per one-way leg, in the configured currency) are
+# rejected as implausible, e.g. if Google ever answered in a different currency.
+min_leg_price = 20
+max_leg_price = 1500
+# Reported departure/arrival times must agree with the reported flight
+# duration (after applying both airports' time zones) within this tolerance.
+duration_tolerance_minutes = 10
+
+[scraping]
+min_delay_seconds = 4                 # random pause between requests
+max_delay_seconds = 9
+max_retries = 2                       # retries per request after the first try
+backoff_seconds = 15                  # doubled on each retry, plus jitter
+
+[alerts]
+# Telegram alert when a weekend total is below this amount...
+total_below = 250
+# ...or has dropped by more than this percentage since the previous run.
+drop_percent = 10
+
+[output]
+history_csv = "data/history.csv"
+summary_md = "SUMMARY.md"
