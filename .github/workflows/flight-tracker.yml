@@ -22,9 +22,9 @@ jobs:
       run:
         working-directory: flight-tracker
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
           cache: pip
@@ -41,10 +41,22 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TRACKER_DEBUG_DIR: debug-pages
         run: |
           set +e
           python -m tracker config.toml
           echo "code=$?" >> "$GITHUB_OUTPUT"
+
+      # Pages that failed to parse or had unreadable results, for diagnosis.
+      # Kept as a run artifact for 7 days; never committed.
+      - name: Upload pages that could not be read
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: debug-pages
+          path: flight-tracker/debug-pages/
+          if-no-files-found: ignore
+          retention-days: 7
 
       # Commit even when fetches failed, so the history and summary record
       # the failure instead of silently showing yesterday's prices.

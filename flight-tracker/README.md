@@ -39,6 +39,7 @@ Each leg in the summary shows one of three states:
 | `SGD 128 · Scoot · 19:05→20:30` | Cheapest qualifying flight found **in this run** |
 | `— no qualifying flights (…)` | Google answered, but nothing met the rules. The reason is given, e.g. "3 departs before 18:00" |
 | `❌ fetch failed: …` | No usable answer: network error, consent page, block page or unreadable response |
+| `… ⚠ 2 unreadable` | Priced, but Google also sent results that couldn't be read and were skipped. One of those could have been cheaper |
 
 A total appears only when both legs were priced in this run. Old prices are
 never carried forward. ★ marks the cheapest complete weekend.
@@ -101,11 +102,19 @@ logs a warning but doesn't fail the run.
   checked against the Sunday 20:00 rule or the airport rule. Every price
   here is therefore **2 × one-way** (`pricing_type = one-way` in the CSV).
   For SQ or Thai, it can be worth also checking the round-trip price on the airline's site.
+- **Unreadable results.** fast-flights 3.1.0 gives up on a whole page if one
+  result has an unexpected shape (seen live: two legs failed this way on the
+  first run). The tracker reads each result separately, skips any it can't
+  read, and marks that leg with ⚠. If none can be read, the leg shows
+  `❌ fetch failed`. Such a page isn't retried, since it would fail the same
+  way. Any page that failed or had skipped results is attached to the
+  workflow run as the `debug-pages` artifact for 7 days, so the cause can be
+  checked.
 - **"Best flights" section.** fast-flights 3.1.0 parses only one of the two
   result lists in Google's page data. The tracker also tries to parse the
   other ("best flights") list, using the same library code. If that fails,
-  it logs a warning and uses the library's list alone. This step has not
-  been tested against a live Google response.
+  it skips those results as above. Each request's log line shows how many
+  results came from each list.
 - **Where the search comes from.** The search runs from a GitHub server
   (usually in the US). Google may show slightly different fares or flights
   than you would see in Singapore. The currency is requested as SGD, but

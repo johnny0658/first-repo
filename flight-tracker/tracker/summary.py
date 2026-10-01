@@ -18,6 +18,7 @@ FAILURE_LABELS = {
     "blocked": "blocked by Google",
     "google_error": "Google returned an error",
     "unparseable": "unreadable response",
+    "parse_error": "unreadable flight data",
     "network_error": "network error",
 }
 
@@ -38,7 +39,10 @@ def _leg_cell(cfg: Config, lr: LegResult) -> str:
         arr = q.arrival.strftime("%H:%M")
         if q.arrival.date() > q.departure.date():
             arr += "+1"
-        return f"{money(cfg, q.price)} · {q.airline} · {q.departure:%H:%M}→{arr}"
+        text = f"{money(cfg, q.price)} · {q.airline} · {q.departure:%H:%M}→{arr}"
+        if lr.skipped:
+            text += f" ⚠ {lr.skipped} unreadable"
+        return text
     if lr.status == NO_FLIGHTS:
         return f"— no qualifying flights ({lr.detail})" if lr.detail else "— no qualifying flights"
     kind, _, rest = lr.detail.partition(": ")
@@ -103,7 +107,8 @@ def render(cfg: Config, run_ts: datetime, results: list[WeekendResult],
     lines += [
         "",
         f"★ = cheapest weekend with both legs priced. Times are local at each airport; "
-        f"+1 = arrives next day. Previous run: {prev_run or 'none'}.",
+        f"+1 = arrives next day. ⚠ = Google sent results that couldn't be read and were skipped; "
+        f"one of them could have been cheaper. Previous run: {prev_run or 'none'}.",
         "",
         "Book on the airline's own site and check the price there; Google's fare can differ.",
         "",

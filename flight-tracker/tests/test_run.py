@@ -19,12 +19,12 @@ def fake_fetch(responses):
     """responses: {(date_iso, origin): FetchOutcome}; default = unparseable."""
     calls = []
 
-    def fetch(query, cfg, sleep):
+    def fetch(query, cfg, sleep, debug_name=""):
         fd = query.flight_data[0]
         key = (fd.date, fd.from_airport.airport)
         calls.append(key)
         out = responses.get(key, FetchOutcome(UNPARSEABLE, detail="no fixture"))
-        return FetchOutcome(out.kind, out.flights, out.detail, attempts=1)
+        return FetchOutcome(out.kind, out.flights, out.detail, attempts=1, skipped=out.skipped)
 
     fetch.calls = calls
     return fetch
@@ -149,3 +149,19 @@ def test_failure_text_cannot_break_the_table(cfg):
     rows = [line for line in md.splitlines() if line.startswith("|") and "Oct" in line]
     assert len(rows) == 1 and rows[0].count("|") == 7
     assert "network error" in rows[0]
+
+
+def test_skipped_results_are_flagged(cfg):
+    cfg = cfg.__class__(**{**cfg.__dict__, "weekends": 1})
+    partial = FetchOutcome(OK, flights=[sin_bkk(130, 19, 0)], skipped=2)
+    results, n = run(cfg, RUN1, sleep=no_sleep, fetch=fake_fetch({
+        ("2026-10-02", "SIN"): partial,
+        ("2026-10-04", "BKK"): ok(bkk_sin(140, 21, 0)),
+    }))
+    lr = results[0].outbound
+    assert lr.skipped == 2 and "2 unreadable result(s) skipped" in lr.detail
+    assert results[0].total == 270  # still priced, but flagged
+    md = render(cfg, RUN1, results, None, {}, n)
+    row = next(line for line in md.splitlines() if line.startswith("|") and "Oct" in line)
+    assert "SGD 130 · Scoot · 19:00→20:25 ⚠ 2 unreadable" in row
+    assert "⚠ 2 unreadable" not in row.split("|")[4]  # return leg not flagged
