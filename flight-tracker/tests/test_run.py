@@ -31,7 +31,8 @@ def fake_fetch(responses):
         key = (fd.date, fd.from_airport.airport)
         calls.append(key)
         out = responses.get(key, FetchOutcome(UNPARSEABLE, detail="no fixture"))
-        return FetchOutcome(out.kind, out.flights, out.detail, attempts=1, skipped=out.skipped)
+        return FetchOutcome(out.kind, out.flights, out.detail, attempts=1, skipped=out.skipped,
+                            unpriced=out.unpriced)
 
     fetch.calls = calls
     return fetch
@@ -210,3 +211,17 @@ def test_main_exit_code_ignores_not_on_sale_legs(cfg, tmp_path, monkeypatch):
     cfg_path = tmp_path / "config.toml"
     assert m.main(["x", str(cfg_path), "--scan", "year2027"]) == 0  # nothing searched is not a failure
     assert (tmp_path / "SUMMARY-2027.md").exists()
+
+
+def test_unpriced_flights_are_noted_without_a_warning(cfg):
+    scan = upcoming(cfg, 1)
+    results, n = run(cfg, scan, RUN1, sleep=no_sleep, fetch=fake_fetch({
+        ("2026-10-02", "SIN"): FetchOutcome(OK, flights=[sin_bkk(130, 19, 0)], unpriced=7),
+        ("2026-10-04", "BKK"): FetchOutcome(OK, flights=[], unpriced=3),
+    }))
+    out, ret = results[0].outbound, results[0].ret
+    assert out.skipped == 0 and "7 flight(s) with no price shown" in out.detail
+    assert ret.status == "no_qualifying_flights" and "3 flight(s) with no price shown" in ret.detail
+    md = render(cfg, scan, RUN1, results, None, {}, n)
+    row = next(line for line in md.splitlines() if line.startswith("|") and "Oct" in line)
+    assert "⚠" not in row and "SGD 130 · Scoot · 19:00→20:25 |" in row
