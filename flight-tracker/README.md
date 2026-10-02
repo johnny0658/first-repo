@@ -53,6 +53,11 @@ Each leg in the summary shows one of three states:
 | `❌ fetch failed: …` | No usable answer: network error, consent page, block page or unreadable response |
 | `… ⚠ 2 unreadable` | Priced, but Google also sent results that couldn't be read and were skipped. One of those could have been cheaper |
 
+Flights that Google lists without a fare yet (common far ahead) can't be the
+cheapest, so they don't get a ⚠. They're counted in the history CSV's
+`detail` column ("7 flight(s) with no price shown"), and each one is named
+in the run log.
+
 A total appears only when both legs were priced in this run. Old prices are
 never carried forward. ★ marks the cheapest complete weekend.
 
@@ -127,7 +132,9 @@ logs a warning but doesn't fail the run.
 - **Unreadable results.** fast-flights 3.1.0 gives up on a whole page if one
   result has an unexpected shape (seen live: two legs failed this way on the
   first run). The tracker reads each result separately, skips any it can't
-  read, and marks that leg with ⚠. If none can be read, the leg shows
+  read, and marks that leg with ⚠. A result whose only problem is a missing
+  fare is counted as "no price shown" instead, with no ⚠ (the plain library
+  crashes on these too). If none can be read, the leg shows
   `❌ fetch failed`. Such a page isn't retried, since it would fail the same
   way. Any page that failed or had skipped results is attached to the
   workflow run as the `debug-pages` artifact for 7 days, so the cause can be

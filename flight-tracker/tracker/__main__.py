@@ -82,8 +82,12 @@ def run(cfg: Config, scan: Scan, now: datetime, fetch: Callable = fetch_with_ret
             quotes, rejected = qualifying(outcome.flights, spec)
             best = cheapest(quotes)
             summary = describe_rejections(len(outcome.flights), rejected)
+            notes = ""
+            if outcome.unpriced:
+                notes += f"; {outcome.unpriced} flight(s) with no price shown"
             if outcome.skipped:
-                summary += f"; {outcome.skipped} unreadable result(s) skipped"
+                notes += f"; {outcome.skipped} unreadable result(s) skipped"
+            summary += notes
             if best is None:
                 log.info("%s: no qualifying flight (%s)", label, summary)
                 legs.append(LegResult(spec.leg, spec.travel_date, NO_FLIGHTS, detail=summary,
@@ -91,9 +95,7 @@ def run(cfg: Config, scan: Scan, now: datetime, fetch: Callable = fetch_with_ret
             else:
                 log.info("%s: %s %s %d (%d qualifying of %d)", label, best.airline, f"{best.departure:%H:%M}",
                          best.price, len(quotes), len(outcome.flights))
-                detail = f"{len(quotes)} qualifying of {len(outcome.flights)} results"
-                if outcome.skipped:
-                    detail += f"; {outcome.skipped} unreadable result(s) skipped"
+                detail = f"{len(quotes)} qualifying of {len(outcome.flights)} results" + notes
                 legs.append(LegResult(spec.leg, spec.travel_date, OK, quote=best, detail=detail,
                                       skipped=outcome.skipped))
         results.append(WeekendResult(weekend, legs[0], legs[1]))

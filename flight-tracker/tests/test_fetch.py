@@ -6,6 +6,8 @@ fast_flights/parser.py (v3.1.0) reads, not captured Google responses.
 
 import json
 
+import pytest
+
 from tracker.fetch import (BLOCKED, CONSENT, DEBUG_DIR_ENV, GOOGLE_ERROR, NETWORK, OK, PARSE_ERROR, UNPARSEABLE,
                            classify_html, fetch_once, fetch_with_retries, parse_flights)
 
@@ -19,6 +21,20 @@ def leg(dep_time, price):
     flight[0], flight[1], flight[2] = "TR", ["Scoot"], [seg]
     flight[22] = [None] * 9
     return [flight, [[None, price]]]
+
+
+def broken(price=80):
+    """A result whose flight details are malformed (segment too short)."""
+    bad = leg([21], price)
+    bad[0][2] = [[None, None, None]]
+    return bad
+
+
+def unpriced(dep_time):
+    """A readable flight that Google lists without a fare."""
+    item = leg(dep_time, 0)
+    item[1] = []
+    return item
 
 
 def page(best, other):
@@ -51,11 +67,41 @@ def test_parse_merges_best_and_other_sections_and_dedupes():
 
 
 def test_one_bad_result_is_skipped_not_fatal():
-    bad = leg([21], 80)
-    bad[1] = []  # e.g. a result without a price: the library's k[1][0][1] raises IndexError
-    _, js = page(None, [leg([19], 120), bad, leg([22], 99)])
+    _, js = page(None, [leg([19], 120), broken(), leg([22], 99)])
     flights, stats = parse_flights(js)
-    assert sorted(f.price for f in flights) == [99, 120] and stats.skipped == 1
+    assert sorted(f.price for f in flights) == [99, 120] and stats.skipped == 1 and stats.unpriced == 0
+
+
+def test_flights_without_a_price_are_counted_not_skipped():
+    # The plain library raises IndexError on these (it reads k[1][0][1]).
+    _, js = page([unpriced([19, 40])], [leg([22], 99), unpriced([20]), unpriced([19, 40])])
+    flights, stats = parse_flights(js)
+    assert [f.price for f in flights] == [99]
+    assert stats.unpriced == 2  # the 19:40 one is listed in both sections
+    assert stats.skipped == 0
+
+
+@pytest.mark.parametrize("slot", [[], None, [None], [[None]], [[None, None]]])
+def test_every_empty_price_slot_shape_counts_as_unpriced(slot):
+    item = leg([20], 0)
+    item[1] = slot
+    _, js = page(None, [item, leg([22], 99)])
+    flights, stats = parse_flights(js)
+    assert [f.price for f in flights] == [99] and stats.unpriced == 1 and stats.skipped == 0
+
+
+def test_unpriced_result_with_broken_details_is_still_unreadable():
+    item = broken()
+    item[1] = []
+    _, js = page(None, [item, leg([22], 99)])
+    flights, stats = parse_flights(js)
+    assert stats.skipped == 1 and stats.unpriced == 0
+
+
+def test_page_with_only_unpriced_flights_is_not_an_error():
+    _, js = page(None, [unpriced([19]), unpriced([21])])
+    flights, stats = parse_flights(js)
+    assert flights == [] and stats.unpriced == 2
 
 
 def test_unparseable_best_section_items_are_skipped():
@@ -88,9 +134,7 @@ def test_no_results_at_all_is_not_an_error():
 
 
 def test_all_results_unreadable_is_a_parse_error(cfg):
-    bad = leg([21], 80)
-    bad[1] = []
-    html, _ = page(None, [bad])
+    html, _ = page(None, [broken()])
     calls = []
 
     def f(q):
@@ -102,9 +146,7 @@ def test_all_results_unreadable_is_a_parse_error(cfg):
 
 def test_debug_page_saved_on_failure_and_skips(tmp_path, monkeypatch):
     monkeypatch.setenv(DEBUG_DIR_ENV, str(tmp_path))
-    bad = leg([21], 80)
-    bad[1] = []
-    partial, _ = page(None, [leg([19], 120), bad])
+    partial, _ = page(None, [leg([19], 120), broken()])
     out = fetch_once(None, lambda q: partial, debug_name="2026-10-02_outbound")
     assert out.kind == OK and out.skipped == 1
     assert (tmp_path / "2026-10-02_outbound.html").read_text() == partial
@@ -113,6 +155,9 @@ def test_debug_page_saved_on_failure_and_skips(tmp_path, monkeypatch):
     good, _ = page(None, [leg([19], 120)])
     fetch_once(None, lambda q: good, debug_name="ok")
     assert not (tmp_path / "ok.html").exists()
+    no_fare, _ = page(None, [leg([19], 120), unpriced([21])])
+    out = fetch_once(None, lambda q: no_fare, debug_name="no_fare")
+    assert out.unpriced == 1 and out.skipped == 0 and not (tmp_path / "no_fare.html").exists()
 
 
 def test_fetch_once_outcomes():

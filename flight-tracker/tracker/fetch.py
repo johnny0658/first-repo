@@ -56,11 +56,13 @@ DEBUG_DIR_ENV = "TRACKER_DEBUG_DIR"
 class ParseStats:
     per_section: dict[str, int] = field(default_factory=dict)
     skipped: int = 0  # results we couldn't read and left out
+    unpriced: int = 0  # readable flights Google lists without a fare
     duplicates: int = 0
 
     def describe(self) -> str:
         parts = [f"{n} from '{name}'" for name, n in self.per_section.items()]
-        return ", ".join(parts) + f", {self.duplicates} duplicates, {self.skipped} unreadable"
+        return (", ".join(parts) + f", {self.duplicates} duplicates, {self.unpriced} with no price shown, "
+                f"{self.skipped} unreadable")
 
 
 @dataclass
@@ -70,6 +72,7 @@ class FetchOutcome:
     detail: str = ""
     attempts: int = 0
     skipped: int = 0
+    unpriced: int = 0
 
 
 def build_query(cfg: Config, date_iso: str, origin: str, destination: str):
@@ -133,8 +136,47 @@ def _parse_item(payload: list, item) -> Flights:
     return parsed[0]
 
 
+def _price_missing(item) -> bool:
+    """True if this result's price slot (item[1][0][1], where fast-flights reads
+    it) is empty, while the flight part (item[0]) is present.
+
+    Google lists some flights, especially far ahead, without a fare yet.
+    Anything else odd about the result is left for the parser to reject.
+    """
+    if not (isinstance(item, list) and len(item) >= 2 and isinstance(item[0], list)):
+        return False
+    slot = item[1]
+    if slot is None or slot == []:
+        return True
+    if not isinstance(slot, list):
+        return False
+    first = slot[0]
+    return first is None or (isinstance(first, list) and (len(first) < 2 or first[1] is None))
+
+
+def _with_placeholder_price(item: list) -> list:
+    """A copy of a price-less result with price 0, so the library can parse the
+    flight details (for logging only; such a result is never priced)."""
+    slot = list(item[1]) if isinstance(item[1], list) else []
+    first = list(slot[0]) if slot and isinstance(slot[0], list) else []
+    first += [None] * (2 - len(first))
+    first[1] = 0
+    return [item[0], [first] + slot[1:], *item[2:]]
+
+
+def _identity(f: Flights) -> tuple:
+    return (
+        tuple(f.airlines or ()),
+        tuple((s.from_airport.code, s.to_airport.code, tuple(s.departure.date), tuple(s.departure.time))
+              for s in f.flights),
+    )
+
+
 def parse_flights(js: str) -> tuple[list[Flights], ParseStats]:
     """Parse every result in both sections, skipping (and counting) unreadable ones.
+
+    Flights Google lists without a fare are counted separately (stats.unpriced)
+    and left out: they can't be priced, so they can't be the cheapest.
 
     Raises FlightsNotFound when Google flags an error, ValueError when the
     page data can't be read at all or no result in it could be read.
@@ -149,13 +191,30 @@ def parse_flights(js: str) -> tuple[list[Flights], ParseStats]:
     if not isinstance(payload, list):
         raise ValueError("flight data is not a list")
 
-    stats, flights, seen = ParseStats(), [], set()
+    stats, flights, seen, seen_unpriced = ParseStats(), [], set(), set()
     total_items = 0
     for name, index in SECTIONS.items():
         items = _section_items(payload, index)
         total_items += len(items)
         count = 0
         for item in items:
+            if _price_missing(item):
+                try:
+                    f = _parse_item(payload, _with_placeholder_price(item))
+                except Exception as exc:  # noqa: BLE001
+                    stats.skipped += 1
+                    log.warning("skipped an unreadable result in '%s' (%s: %s)", name, type(exc).__name__, exc)
+                else:
+                    # A flight with no fare can't be the cheapest one, so it
+                    # is counted and logged but doesn't cast doubt on the leg.
+                    if _identity(f) in seen_unpriced:
+                        continue
+                    seen_unpriced.add(_identity(f))
+                    stats.unpriced += 1
+                    seg = f.flights[0] if f.flights else None
+                    log.info("no price shown in '%s': %s %s", name, " + ".join(f.airlines or ()) or "?",
+                             "%02d:%02d" % tuple(seg.departure.time) if seg else "?")
+                continue
             try:
                 f = _parse_item(payload, item)
             except Exception as exc:  # noqa: BLE001 - library raises Index/Type/KeyError
@@ -163,12 +222,7 @@ def parse_flights(js: str) -> tuple[list[Flights], ParseStats]:
                 log.warning("skipped an unreadable result in '%s' (%s: %s)", name, type(exc).__name__, exc)
                 continue
             count += 1
-            key = (
-                f.price,
-                tuple(f.airlines or ()),
-                tuple((s.from_airport.code, s.to_airport.code, tuple(s.departure.date), tuple(s.departure.time))
-                      for s in f.flights),
-            )
+            key = (f.price, *_identity(f))
             if key in seen:
                 stats.duplicates += 1
                 continue
@@ -176,7 +230,7 @@ def parse_flights(js: str) -> tuple[list[Flights], ParseStats]:
             flights.append(f)
         stats.per_section[name] = count
 
-    if total_items and not flights:
+    if total_items and not flights and not stats.unpriced:
         raise ValueError(f"none of the {total_items} results could be read")
     return flights, stats
 
@@ -224,7 +278,7 @@ def _classify_and_parse(html: str) -> FetchOutcome:
     except Exception as exc:  # noqa: BLE001
         return FetchOutcome(PARSE_ERROR, detail=f"could not read flight data: {type(exc).__name__}: {exc}")
     log.info("parsed %d results (%s)", len(flights), stats.describe())
-    return FetchOutcome(OK, flights=flights, skipped=stats.skipped)
+    return FetchOutcome(OK, flights=flights, skipped=stats.skipped, unpriced=stats.unpriced)
 
 
 def fetch_with_retries(
