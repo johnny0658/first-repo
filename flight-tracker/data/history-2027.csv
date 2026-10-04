@@ -317,3 +317,109 @@ run_timestamp_utc,weekend_friday,weekend_sunday,leg,travel_date,status,airline,d
 2026-10-04T05:34:48Z,2027-12-24,2027-12-26,return,2027-12-26,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
 2026-10-04T05:34:48Z,2027-12-31,2028-01-02,outbound,2027-12-31,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
 2026-10-04T05:34:48Z,2027-12-31,2028-01-02,return,2028-01-02,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-01-01,2027-01-03,outbound,2027-01-01,ok,Scoot,2027-01-01 19:40,2027-01-01 21:15,227,SGD,one-way,4 qualifying of 18 results
+2026-10-04T13:25:36Z,2027-01-01,2027-01-03,return,2027-01-03,ok,Scoot,2027-01-03 20:15,2027-01-03 23:50,250,SGD,one-way,4 qualifying of 18 results
+2026-10-04T13:25:36Z,2027-01-08,2027-01-10,outbound,2027-01-08,ok,Scoot,2027-01-08 19:40,2027-01-08 21:15,202,SGD,one-way,4 qualifying of 18 results
+2026-10-04T13:25:36Z,2027-01-08,2027-01-10,return,2027-01-10,ok,Scoot,2027-01-10 20:15,2027-01-10 23:50,215,SGD,one-way,4 qualifying of 18 results
+2026-10-04T13:25:36Z,2027-01-15,2027-01-17,outbound,2027-01-15,ok,Scoot,2027-01-15 19:40,2027-01-15 21:15,167,SGD,one-way,4 qualifying of 18 results
+2026-10-04T13:25:36Z,2027-01-15,2027-01-17,return,2027-01-17,ok,Scoot,2027-01-17 20:15,2027-01-17 23:50,166,SGD,one-way,4 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-01-22,2027-01-24,outbound,2027-01-22,ok,Scoot,2027-01-22 19:40,2027-01-22 21:15,167,SGD,one-way,4 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-01-22,2027-01-24,return,2027-01-24,ok,Scoot,2027-01-24 20:15,2027-01-24 23:50,166,SGD,one-way,4 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-01-29,2027-01-31,outbound,2027-01-29,ok,THAI,2027-01-29 19:15,2027-01-29 20:35,252,SGD,one-way,4 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-01-29,2027-01-31,return,2027-01-31,ok,Scoot,2027-01-31 22:20,2027-02-01 01:55,166,SGD,one-way,4 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-02-05,2027-02-07,outbound,2027-02-05,ok,THAI,2027-02-05 21:00,2027-02-05 22:20,408,SGD,one-way,4 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-02-05,2027-02-07,return,2027-02-07,ok,Scoot,2027-02-07 20:15,2027-02-07 23:50,250,SGD,one-way,4 qualifying of 18 results
+2026-10-04T13:25:36Z,2027-02-12,2027-02-14,outbound,2027-02-12,ok,Scoot,2027-02-12 19:40,2027-02-12 21:15,202,SGD,one-way,4 qualifying of 18 results
+2026-10-04T13:25:36Z,2027-02-12,2027-02-14,return,2027-02-14,ok,Singapore Airlines,2027-02-14 21:15,2027-02-15 00:45,258,SGD,one-way,4 qualifying of 18 results
+2026-10-04T13:25:36Z,2027-02-19,2027-02-21,outbound,2027-02-19,ok,Scoot,2027-02-19 19:40,2027-02-19 21:15,202,SGD,one-way,3 qualifying of 11 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-02-19,2027-02-21,return,2027-02-21,ok,Scoot,2027-02-21 22:20,2027-02-22 01:55,166,SGD,one-way,3 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-02-26,2027-02-28,outbound,2027-02-26,ok,Scoot,2027-02-26 19:40,2027-02-26 21:15,202,SGD,one-way,4 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-02-26,2027-02-28,return,2027-02-28,ok,Scoot,2027-02-28 22:20,2027-03-01 01:55,166,SGD,one-way,3 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-03-05,2027-03-07,outbound,2027-03-05,ok,THAI,2027-03-05 21:00,2027-03-05 22:20,252,SGD,one-way,3 qualifying of 11 results; 6 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-03-05,2027-03-07,return,2027-03-07,ok,Scoot,2027-03-07 22:20,2027-03-08 01:55,166,SGD,one-way,3 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-03-12,2027-03-14,outbound,2027-03-12,ok,Scoot,2027-03-12 19:40,2027-03-12 21:15,257,SGD,one-way,4 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-03-12,2027-03-14,return,2027-03-14,ok,Scoot,2027-03-14 20:15,2027-03-14 23:50,250,SGD,one-way,4 qualifying of 18 results
+2026-10-04T13:25:36Z,2027-03-19,2027-03-21,outbound,2027-03-19,ok,Scoot,2027-03-19 19:40,2027-03-19 21:15,202,SGD,one-way,3 qualifying of 11 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-03-19,2027-03-21,return,2027-03-21,ok,Scoot,2027-03-21 20:15,2027-03-21 23:50,215,SGD,one-way,4 qualifying of 18 results
+2026-10-04T13:25:36Z,2027-03-26,2027-03-28,outbound,2027-03-26,ok,Scoot,2027-03-26 19:40,2027-03-26 21:15,257,SGD,one-way,4 qualifying of 18 results
+2026-10-04T13:25:36Z,2027-03-26,2027-03-28,return,2027-03-28,ok,Scoot,2027-03-28 20:35,2027-03-29 00:05,250,SGD,one-way,3 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-04-02,2027-04-04,outbound,2027-04-02,ok,Scoot,2027-04-02 18:00,2027-04-02 19:35,207,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-04-02,2027-04-04,return,2027-04-04,ok,Scoot,2027-04-04 20:35,2027-04-05 00:05,215,SGD,one-way,3 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-04-09,2027-04-11,outbound,2027-04-09,ok,THAI,2027-04-09 20:50,2027-04-09 22:10,257,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-04-09,2027-04-11,return,2027-04-11,ok,Scoot,2027-04-11 20:35,2027-04-12 00:05,215,SGD,one-way,3 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-04-16,2027-04-18,outbound,2027-04-16,ok,Scoot,2027-04-16 18:00,2027-04-16 19:35,207,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-04-16,2027-04-18,return,2027-04-18,ok,Singapore Airlines,2027-04-18 20:15,2027-04-18 23:40,279,SGD,one-way,3 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-04-23,2027-04-25,outbound,2027-04-23,ok,Scoot,2027-04-23 18:00,2027-04-23 19:35,172,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-04-23,2027-04-25,return,2027-04-25,ok,Scoot,2027-04-25 20:35,2027-04-26 00:05,189,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-04-30,2027-05-02,outbound,2027-04-30,ok,THAI,2027-04-30 18:15,2027-04-30 19:35,257,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-04-30,2027-05-02,return,2027-05-02,ok,Scoot,2027-05-02 20:35,2027-05-03 00:05,288,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-05-07,2027-05-09,outbound,2027-05-07,ok,Scoot,2027-05-07 18:00,2027-05-07 19:35,172,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-05-07,2027-05-09,return,2027-05-09,ok,Scoot,2027-05-09 20:35,2027-05-10 00:05,189,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-05-14,2027-05-16,outbound,2027-05-14,ok,Scoot,2027-05-14 18:00,2027-05-14 19:35,262,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-05-14,2027-05-16,return,2027-05-16,ok,Scoot,2027-05-16 20:35,2027-05-17 00:05,189,SGD,one-way,3 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-05-21,2027-05-23,outbound,2027-05-21,ok,THAI,2027-05-21 18:15,2027-05-21 19:35,290,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-05-21,2027-05-23,return,2027-05-23,ok,Singapore Airlines,2027-05-23 20:15,2027-05-23 23:40,279,SGD,one-way,3 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-05-28,2027-05-30,outbound,2027-05-28,ok,Scoot,2027-05-28 18:00,2027-05-28 19:35,262,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-05-28,2027-05-30,return,2027-05-30,ok,Scoot,2027-05-30 20:35,2027-05-31 00:05,215,SGD,one-way,3 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-06-04,2027-06-06,outbound,2027-06-04,ok,Scoot,2027-06-04 18:00,2027-06-04 19:35,262,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-06-04,2027-06-06,return,2027-06-06,ok,Scoot,2027-06-06 20:35,2027-06-07 00:05,215,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-06-11,2027-06-13,outbound,2027-06-11,ok,Scoot,2027-06-11 18:00,2027-06-11 19:35,262,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-06-11,2027-06-13,return,2027-06-13,ok,Scoot,2027-06-13 20:35,2027-06-14 00:05,215,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-06-18,2027-06-20,outbound,2027-06-18,ok,THAI,2027-06-18 20:50,2027-06-18 22:10,257,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-06-18,2027-06-20,return,2027-06-20,ok,Scoot,2027-06-20 20:35,2027-06-21 00:05,215,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-06-25,2027-06-27,outbound,2027-06-25,ok,THAI,2027-06-25 20:50,2027-06-25 22:10,257,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-06-25,2027-06-27,return,2027-06-27,ok,Scoot,2027-06-27 20:35,2027-06-28 00:05,215,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-07-02,2027-07-04,outbound,2027-07-02,ok,Scoot,2027-07-02 18:00,2027-07-02 19:35,172,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-07-02,2027-07-04,return,2027-07-04,ok,Scoot,2027-07-04 20:35,2027-07-05 00:05,215,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-07-09,2027-07-11,outbound,2027-07-09,ok,Scoot,2027-07-09 18:00,2027-07-09 19:35,172,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-07-09,2027-07-11,return,2027-07-11,ok,Scoot,2027-07-11 20:35,2027-07-12 00:05,189,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-07-16,2027-07-18,outbound,2027-07-16,ok,Scoot,2027-07-16 18:00,2027-07-16 19:35,172,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-07-16,2027-07-18,return,2027-07-18,ok,Scoot,2027-07-18 20:35,2027-07-19 00:05,189,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-07-23,2027-07-25,outbound,2027-07-23,ok,Scoot,2027-07-23 18:00,2027-07-23 19:35,172,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-07-23,2027-07-25,return,2027-07-25,ok,Scoot,2027-07-25 20:35,2027-07-26 00:05,189,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-07-30,2027-08-01,outbound,2027-07-30,ok,Scoot,2027-07-30 18:00,2027-07-30 19:35,207,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-07-30,2027-08-01,return,2027-08-01,ok,Scoot,2027-08-01 20:35,2027-08-02 00:05,189,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-08-06,2027-08-08,outbound,2027-08-06,ok,Scoot,2027-08-06 18:00,2027-08-06 19:35,262,SGD,one-way,4 qualifying of 17 results
+2026-10-04T13:25:36Z,2027-08-06,2027-08-08,return,2027-08-08,ok,Scoot,2027-08-08 20:35,2027-08-09 00:05,189,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-08-13,2027-08-15,outbound,2027-08-13,ok,Scoot,2027-08-13 18:00,2027-08-13 19:35,207,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-08-13,2027-08-15,return,2027-08-15,ok,Scoot,2027-08-15 20:35,2027-08-16 00:05,189,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-08-20,2027-08-22,outbound,2027-08-20,ok,Scoot,2027-08-20 18:00,2027-08-20 19:35,172,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-08-20,2027-08-22,return,2027-08-22,ok,Scoot,2027-08-22 20:35,2027-08-23 00:05,215,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-08-27,2027-08-29,outbound,2027-08-27,ok,Scoot,2027-08-27 18:00,2027-08-27 19:35,172,SGD,one-way,3 qualifying of 10 results; 7 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-08-27,2027-08-29,return,2027-08-29,ok,Scoot,2027-08-29 20:35,2027-08-30 00:05,215,SGD,one-way,3 qualifying of 16 results; 1 flight(s) with no price shown
+2026-10-04T13:25:36Z,2027-09-03,2027-09-05,outbound,2027-09-03,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-09-03,2027-09-05,return,2027-09-05,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-09-10,2027-09-12,outbound,2027-09-10,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-09-10,2027-09-12,return,2027-09-12,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-09-17,2027-09-19,outbound,2027-09-17,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-09-17,2027-09-19,return,2027-09-19,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-09-24,2027-09-26,outbound,2027-09-24,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-09-24,2027-09-26,return,2027-09-26,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-10-01,2027-10-03,outbound,2027-10-01,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-10-01,2027-10-03,return,2027-10-03,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-10-08,2027-10-10,outbound,2027-10-08,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-10-08,2027-10-10,return,2027-10-10,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-10-15,2027-10-17,outbound,2027-10-15,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-10-15,2027-10-17,return,2027-10-17,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-10-22,2027-10-24,outbound,2027-10-22,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-10-22,2027-10-24,return,2027-10-24,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-10-29,2027-10-31,outbound,2027-10-29,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-10-29,2027-10-31,return,2027-10-31,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-11-05,2027-11-07,outbound,2027-11-05,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-11-05,2027-11-07,return,2027-11-07,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-11-12,2027-11-14,outbound,2027-11-12,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-11-12,2027-11-14,return,2027-11-14,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-11-19,2027-11-21,outbound,2027-11-19,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-11-19,2027-11-21,return,2027-11-21,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-11-26,2027-11-28,outbound,2027-11-26,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-11-26,2027-11-28,return,2027-11-28,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-12-03,2027-12-05,outbound,2027-12-03,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-12-03,2027-12-05,return,2027-12-05,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-12-10,2027-12-12,outbound,2027-12-10,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-12-10,2027-12-12,return,2027-12-12,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-12-17,2027-12-19,outbound,2027-12-17,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-12-17,2027-12-19,return,2027-12-19,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-12-24,2027-12-26,outbound,2027-12-24,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-12-24,2027-12-26,return,2027-12-26,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-12-31,2028-01-02,outbound,2027-12-31,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
+2026-10-04T13:25:36Z,2027-12-31,2028-01-02,return,2028-01-02,not_on_sale_yet,,,,,SGD,,more than 330 days ahead; not searched
