@@ -215,3 +215,27 @@ run_timestamp_utc,weekend_friday,weekend_sunday,leg,travel_date,status,airline,d
 2026-10-07T07:18:40Z,2026-12-18,2026-12-20,return,2026-12-20,ok,Scoot,2026-12-20 20:15,2026-12-20 23:50,188,SGD,one-way,4 qualifying of 18 results
 2026-10-07T07:18:40Z,2026-12-25,2026-12-27,outbound,2026-12-25,ok,Scoot,2026-12-25 19:40,2026-12-25 21:15,256,SGD,one-way,4 qualifying of 18 results
 2026-10-07T07:18:40Z,2026-12-25,2026-12-27,return,2026-12-27,ok,Singapore Airlines,2026-12-27 20:00,2026-12-27 23:30,333,SGD,one-way,4 qualifying of 18 results
+2026-10-08T07:29:41Z,2026-10-09,2026-10-11,outbound,2026-10-09,ok,THAI,2026-10-09 18:15,2026-10-09 19:35,490,SGD,one-way,3 qualifying of 15 results
+2026-10-08T07:29:41Z,2026-10-09,2026-10-11,return,2026-10-11,ok,Scoot,2026-10-11 20:35,2026-10-12 00:15,215,SGD,one-way,3 qualifying of 16 results
+2026-10-08T07:29:41Z,2026-10-16,2026-10-18,outbound,2026-10-16,ok,THAI,2026-10-16 18:15,2026-10-16 19:35,490,SGD,one-way,3 qualifying of 15 results
+2026-10-08T07:29:41Z,2026-10-16,2026-10-18,return,2026-10-18,ok,Scoot,2026-10-18 20:35,2026-10-19 00:15,215,SGD,one-way,3 qualifying of 15 results
+2026-10-08T07:29:41Z,2026-10-23,2026-10-25,outbound,2026-10-23,ok,THAI,2026-10-23 18:15,2026-10-23 19:35,406,SGD,one-way,3 qualifying of 15 results
+2026-10-08T07:29:41Z,2026-10-23,2026-10-25,return,2026-10-25,ok,Scoot,2026-10-25 22:20,2026-10-26 01:55,188,SGD,one-way,4 qualifying of 17 results
+2026-10-08T07:29:41Z,2026-10-30,2026-11-01,outbound,2026-10-30,ok,Scoot,2026-10-30 19:40,2026-10-30 21:15,256,SGD,one-way,4 qualifying of 17 results
+2026-10-08T07:29:41Z,2026-10-30,2026-11-01,return,2026-11-01,ok,Scoot,2026-11-01 20:15,2026-11-01 23:50,215,SGD,one-way,4 qualifying of 16 results
+2026-10-08T07:29:41Z,2026-11-06,2026-11-08,outbound,2026-11-06,ok,Scoot,2026-11-06 19:40,2026-11-06 21:15,407,SGD,one-way,3 qualifying of 13 results; 1 flight(s) with no price shown
+2026-10-08T07:29:41Z,2026-11-06,2026-11-08,return,2026-11-08,ok,Scoot,2026-11-08 20:15,2026-11-08 23:50,249,SGD,one-way,4 qualifying of 17 results
+2026-10-08T07:29:41Z,2026-11-13,2026-11-15,outbound,2026-11-13,ok,THAI,2026-11-13 19:15,2026-11-13 20:35,283,SGD,one-way,4 qualifying of 17 results
+2026-10-08T07:29:41Z,2026-11-13,2026-11-15,return,2026-11-15,ok,Singapore Airlines,2026-11-15 21:15,2026-11-16 00:45,216,SGD,one-way,4 qualifying of 16 results
+2026-10-08T07:29:41Z,2026-11-20,2026-11-22,outbound,2026-11-20,ok,Scoot,2026-11-20 19:40,2026-11-20 21:15,286,SGD,one-way,4 qualifying of 17 results
+2026-10-08T07:29:41Z,2026-11-20,2026-11-22,return,2026-11-22,ok,Scoot,2026-11-22 22:20,2026-11-23 01:55,215,SGD,one-way,4 qualifying of 17 results
+2026-10-08T07:29:41Z,2026-11-27,2026-11-29,outbound,2026-11-27,ok,Scoot,2026-11-27 19:40,2026-11-27 21:15,286,SGD,one-way,4 qualifying of 17 results
+2026-10-08T07:29:41Z,2026-11-27,2026-11-29,return,2026-11-29,ok,Scoot,2026-11-29 22:20,2026-11-30 01:55,215,SGD,one-way,4 qualifying of 17 results
+2026-10-08T07:29:41Z,2026-12-04,2026-12-06,outbound,2026-12-04,ok,Scoot,2026-12-04 19:40,2026-12-04 21:15,286,SGD,one-way,4 qualifying of 17 results
+2026-10-08T07:29:41Z,2026-12-04,2026-12-06,return,2026-12-06,ok,Scoot,2026-12-06 20:15,2026-12-06 23:50,188,SGD,one-way,4 qualifying of 18 results
+2026-10-08T07:29:41Z,2026-12-11,2026-12-13,outbound,2026-12-11,ok,Scoot,2026-12-11 19:40,2026-12-11 21:15,286,SGD,one-way,4 qualifying of 18 results
+2026-10-08T07:29:41Z,2026-12-11,2026-12-13,return,2026-12-13,ok,Scoot,2026-12-13 20:15,2026-12-13 23:50,188,SGD,one-way,4 qualifying of 18 results
+2026-10-08T07:29:41Z,2026-12-18,2026-12-20,outbound,2026-12-18,ok,Scoot,2026-12-18 19:40,2026-12-18 21:15,326,SGD,one-way,4 qualifying of 18 results
+2026-10-08T07:29:41Z,2026-12-18,2026-12-20,return,2026-12-20,ok,Scoot,2026-12-20 20:15,2026-12-20 23:50,188,SGD,one-way,4 qualifying of 18 results
+2026-10-08T07:29:41Z,2026-12-25,2026-12-27,outbound,2026-12-25,ok,Scoot,2026-12-25 19:40,2026-12-25 21:15,286,SGD,one-way,4 qualifying of 18 results
+2026-10-08T07:29:41Z,2026-12-25,2026-12-27,return,2026-12-27,ok,Singapore Airlines,2026-12-27 21:15,2026-12-28 00:45,338,SGD,one-way,4 qualifying of 18 results
