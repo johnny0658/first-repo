@@ -1,6 +1,6 @@
 # SIN → BKK weekend fares: next 12 weekends
 
-**Last run:** Sun 11 Oct 2026 15:17 Singapore time (07:17 UTC) · 25 requests · 0 of 24 searched legs failed
+**Last run:** Mon 12 Oct 2026 15:26 Singapore time (07:26 UTC) · 25 requests · 0 of 24 searched legs failed
 
 Outbound: Friday SIN→BKK, departing 18:00 or later (SIN local). Return: Sunday BKK→SIN, departing 20:00 or later (BKK local). 1 adult, economy, nonstop. Prices are the cheapest one-way fare per leg, summed (pricing type: 2 × one-way).
 
@@ -9,7 +9,7 @@ Every price below comes from this run. If a leg failed or had no qualifying flig
 | | Weekend | Outbound (Fri) | Return (Sun) | Total | vs last run |
 |---|---|---|---|---|---|
 |  | Fri 16 Oct – Sun 18 Oct | SGD 436 · THAI · 18:15→19:35 | SGD 249 · Scoot · 20:35→00:15+1 | **SGD 685** | no change |
-|  | Fri 23 Oct – Sun 25 Oct | SGD 407 · THAI · 18:15→19:35 | SGD 188 · Scoot · 22:20→01:55+1 | **SGD 595** | no change |
+|  | Fri 23 Oct – Sun 25 Oct | SGD 436 · THAI · 18:15→19:35 | SGD 188 · Scoot · 22:20→01:55+1 | **SGD 624** | ▲ SGD 29 (+4.9%) |
 | ★ | Fri 30 Oct – Sun 01 Nov | SGD 256 · Scoot · 19:40→21:15 | SGD 215 · Scoot · 20:15→23:50 | **SGD 471** | no change |
 |  | Fri 06 Nov – Sun 08 Nov | SGD 472 · Scoot · 19:40→21:15 | SGD 249 · Scoot · 20:15→23:50 | **SGD 721** | no change |
 |  | Fri 13 Nov – Sun 15 Nov | SGD 284 · THAI · 19:15→20:35 | SGD 249 · Scoot · 22:20→01:55+1 | **SGD 533** | no change |
@@ -21,6 +21,6 @@ Every price below comes from this run. If a leg failed or had no qualifying flig
 |  | Fri 25 Dec – Sun 27 Dec | SGD 286 · Scoot · 19:40→21:15 | SGD 370 · Scoot · 22:20→01:55+1 | **SGD 656** | no change |
 |  | Fri 01 Jan – Sun 03 Jan | SGD 257 · Scoot · 19:40→21:15 | SGD 288 · Scoot · 20:15→23:50 | **SGD 545** | no change |
 
-★ = cheapest weekend with both legs priced. Times are local at each airport; +1 = arrives next day. ⚠ = Google sent results that couldn't be read and were skipped; one of them could have been cheaper. ⏳ = more than 330 days ahead, so not searched yet; it will be once it is within range. Past weekends are dropped. Previous run: 2026-10-10T07:15:17Z.
+★ = cheapest weekend with both legs priced. Times are local at each airport; +1 = arrives next day. ⚠ = Google sent results that couldn't be read and were skipped; one of them could have been cheaper. ⏳ = more than 330 days ahead, so not searched yet; it will be once it is within range. Past weekends are dropped. Previous run: 2026-10-11T07:17:20Z.
 
 Book on the airline's own site and check the price there; Google's fare can differ.
