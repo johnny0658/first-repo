@@ -1055,3 +1055,27 @@ run_timestamp_utc,weekend_friday,weekend_sunday,leg,travel_date,status,airline,d
 2026-11-11T07:47:31Z,2027-01-22,2027-01-24,return,2027-01-24,ok,Scoot,2027-01-24 22:20,2027-01-25 01:55,166,SGD,one-way,4 qualifying of 17 results
 2026-11-11T07:47:31Z,2027-01-29,2027-01-31,outbound,2027-01-29,ok,Scoot,2027-01-29 19:40,2027-01-29 21:15,227,SGD,one-way,4 qualifying of 17 results
 2026-11-11T07:47:31Z,2027-01-29,2027-01-31,return,2027-01-31,ok,Scoot,2027-01-31 22:20,2027-02-01 01:55,166,SGD,one-way,4 qualifying of 17 results
+2026-11-12T08:24:58Z,2026-11-13,2026-11-15,outbound,2026-11-13,ok,THAI,2026-11-13 19:15,2026-11-13 20:35,407,SGD,one-way,4 qualifying of 15 results
+2026-11-12T08:24:58Z,2026-11-13,2026-11-15,return,2026-11-15,ok,Scoot,2026-11-15 22:20,2026-11-16 01:55,496,SGD,one-way,1 qualifying of 1 results
+2026-11-12T08:24:58Z,2026-11-20,2026-11-22,outbound,2026-11-20,fetch_failed,,,,,SGD,,google_error: Google returned an error status: no flights found; received error
+2026-11-12T08:24:58Z,2026-11-20,2026-11-22,return,2026-11-22,ok,Scoot,2026-11-22 22:20,2026-11-23 01:55,287,SGD,one-way,4 qualifying of 17 results
+2026-11-12T08:24:58Z,2026-11-27,2026-11-29,outbound,2026-11-27,ok,Scoot,2026-11-27 19:40,2026-11-27 21:15,226,SGD,one-way,4 qualifying of 17 results
+2026-11-12T08:24:58Z,2026-11-27,2026-11-29,return,2026-11-29,ok,Scoot,2026-11-29 20:15,2026-11-29 23:50,430,SGD,one-way,4 qualifying of 17 results
+2026-11-12T08:24:58Z,2026-12-04,2026-12-06,outbound,2026-12-04,ok,Scoot,2026-12-04 19:40,2026-12-04 21:15,326,SGD,one-way,4 qualifying of 17 results
+2026-11-12T08:24:58Z,2026-12-04,2026-12-06,return,2026-12-06,ok,Scoot,2026-12-06 22:20,2026-12-07 01:55,249,SGD,one-way,4 qualifying of 18 results
+2026-11-12T08:24:58Z,2026-12-11,2026-12-13,outbound,2026-12-11,ok,Scoot,2026-12-11 19:40,2026-12-11 21:15,256,SGD,one-way,4 qualifying of 17 results; 1 flight(s) with no price shown
+2026-11-12T08:24:58Z,2026-12-11,2026-12-13,return,2026-12-13,ok,Scoot,2026-12-13 22:20,2026-12-14 01:55,215,SGD,one-way,4 qualifying of 18 results
+2026-11-12T08:24:58Z,2026-12-18,2026-12-20,outbound,2026-12-18,ok,Scoot,2026-12-18 19:40,2026-12-18 21:15,407,SGD,one-way,4 qualifying of 18 results
+2026-11-12T08:24:58Z,2026-12-18,2026-12-20,return,2026-12-20,ok,Scoot,2026-12-20 22:20,2026-12-21 01:55,215,SGD,one-way,4 qualifying of 18 results
+2026-11-12T08:24:58Z,2026-12-25,2026-12-27,outbound,2026-12-25,ok,Scoot,2026-12-25 19:40,2026-12-25 21:15,256,SGD,one-way,4 qualifying of 18 results
+2026-11-12T08:24:58Z,2026-12-25,2026-12-27,return,2026-12-27,ok,Scoot,2026-12-27 22:20,2026-12-28 01:55,287,SGD,one-way,4 qualifying of 18 results
+2026-11-12T08:24:58Z,2027-01-01,2027-01-03,outbound,2027-01-01,ok,Scoot,2027-01-01 19:40,2027-01-01 21:15,257,SGD,one-way,4 qualifying of 18 results
+2026-11-12T08:24:58Z,2027-01-01,2027-01-03,return,2027-01-03,ok,Singapore Airlines,2027-01-03 20:00,2027-01-03 23:30,411,SGD,one-way,4 qualifying of 17 results
+2026-11-12T08:24:58Z,2027-01-08,2027-01-10,outbound,2027-01-08,ok,Scoot,2027-01-08 19:40,2027-01-08 21:15,227,SGD,one-way,4 qualifying of 18 results
+2026-11-12T08:24:58Z,2027-01-08,2027-01-10,return,2027-01-10,ok,Scoot,2027-01-10 20:15,2027-01-10 23:50,215,SGD,one-way,4 qualifying of 18 results
+2026-11-12T08:24:58Z,2027-01-15,2027-01-17,outbound,2027-01-15,ok,Scoot,2027-01-15 19:40,2027-01-15 21:15,227,SGD,one-way,4 qualifying of 18 results
+2026-11-12T08:24:58Z,2027-01-15,2027-01-17,return,2027-01-17,ok,Scoot,2027-01-17 20:15,2027-01-17 23:50,188,SGD,one-way,4 qualifying of 17 results
+2026-11-12T08:24:58Z,2027-01-22,2027-01-24,outbound,2027-01-22,ok,Scoot,2027-01-22 19:40,2027-01-22 21:15,227,SGD,one-way,4 qualifying of 17 results
+2026-11-12T08:24:58Z,2027-01-22,2027-01-24,return,2027-01-24,ok,Scoot,2027-01-24 20:15,2027-01-24 23:50,165,SGD,one-way,4 qualifying of 17 results
+2026-11-12T08:24:58Z,2027-01-29,2027-01-31,outbound,2027-01-29,ok,Scoot,2027-01-29 19:40,2027-01-29 21:15,227,SGD,one-way,4 qualifying of 17 results
+2026-11-12T08:24:58Z,2027-01-29,2027-01-31,return,2027-01-31,ok,Scoot,2027-01-31 22:20,2027-02-01 01:55,165,SGD,one-way,4 qualifying of 17 results
